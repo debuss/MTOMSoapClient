@@ -6,13 +6,15 @@ It decodes XML and integrate attchment in the XML response.
 
 It replaces the
 
-> <xop:Include href="cid:d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org" xmlns:xop="http://www.w3.org/2004/08/xop/include"/>
-
+```
+<xop:Include href="cid:d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org" xmlns:xop="http://www.w3.org/2004/08/xop/include"/>
+```
 
 By the binary code contained in attachment
 
-> Content-ID: <d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org>  
-
+```
+Content-ID: <d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org>  
+```
 
 # Personal Note
 
