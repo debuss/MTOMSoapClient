@@ -18,7 +18,7 @@ Content-ID: <d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org>
 
 # Personal Note
 
-The class is not perfect and not so optimized but it works for most cases and you can modify it as you wish to make it better
+The class is not perfect and not so optimized but it works for most cases and you can modify it as you wish to make it better.
 
 **Enjoy !**
 
@@ -30,7 +30,7 @@ It will turn this answer (normal Soap Response) :
 ```xml
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">  
    <soap:Body>  
-      <ns2:generateLabelResponse xmlns:ns2="http://sls.ws.coliposte.fr">  
+      <ns2:generateLabelResponse xmlns:ns2="http://sls.ws.webservice.fr">  
          <return>  
             <messages>  
                <id>0</id>  
@@ -54,7 +54,7 @@ To this (MTOMSoap Response) :
 ```xml
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
-    <ns2:generateLabelResponse xmlns:ns2="http://sls.ws.coliposte.fr">
+    <ns2:generateLabelResponse xmlns:ns2="http://sls.ws.webservice.fr">
       <return>
         <messages>
           <id>0</id>
