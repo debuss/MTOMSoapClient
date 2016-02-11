@@ -42,7 +42,7 @@ class MTOMSoapClient extends SoapClient
 
         if (!is_array($xml_reponse) || !count($xml_reponse)) {
 
-            throw new Exception('No SOAP has been found.');
+            throw new Exception('No XML has been found.');
 
         }
 
