@@ -4,9 +4,10 @@ Small PHP Soap class to deal with MTOM technology, fetching binaries as base64 s
 This class overrides some SoapClient methods to implement MTOM for PHP.  
 It decodes XML and integrate attchment in the XML response.
 
-It replaces the :
+It replaces the
 
 > <xop:Include href="cid:d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org" xmlns:xop="http://www.w3.org/2004/08/xop/include"/>  
+
 
 By the binary code contained in attachment
 
@@ -68,7 +69,7 @@ To this (MTOMSoap Response) :
 </soap:Envelope>
 ```
 
-A _var_dump()_ of $result will look like this (SoapClient auto base64_decode()) :
+A _var_dump()_ of _$result = $client->\_\_call($url, $params) will look like this (SoapClient auto base64_decode()) :
 
 ```php
 object(stdClass)[2]
