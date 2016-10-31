@@ -1,8 +1,8 @@
 # MTOMSoapClient
 Small PHP Soap class to deal with MTOM technology, fetching binaries as base64 string. 
 
-This class overrides some SoapClient methods to implement MTOM for PHP.  
-It decodes XML and integrate attchment in the XML response.
+This class overrides SoapClient::__doRequest() method to implement MTOM for PHP.  
+It decodes XML and integrate attachments in the XML response.
 
 It replaces the
 
@@ -24,8 +24,31 @@ The class is not perfect and not so optimized but it works for most cases and yo
 
 # Example
 
-It will turn this answer (normal Soap Response) :
+Use it the same as a normal Soap call :
 
+```php
+$client = new MTOMSoapClient($webservice, array(
+    'trace' => true,
+    'exceptions' => true,
+    'soap_version' => SOAP_1_1,
+    'encoding' => 'utf-8'
+));
+
+$result = $client->__call(
+    $method,
+    $parameters
+);
+
+if (!$result instanceof stdClass) {
+    throw new Exception('Soap call response is not a valid stdClass instance.');
+}
+
+var_dump($result->path->to->my->data);
+```
+
+### Explanation
+
+It will turn this answer (normal Soap Response, MTOM is not parsed by Soap) :
 
 ```xml
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">  
@@ -49,7 +72,7 @@ It will turn this answer (normal Soap Response) :
 </soap:Envelope>  
 ```
 
-To this (MTOMSoap Response) :
+To this (MTOMSoap Response, <xop> tags are replaced by there base64 values) :
 
 ```xml
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
@@ -62,7 +85,7 @@ To this (MTOMSoap Response) :
           <type>INFOS</type>
         </messages>
         <labelResponse>
-          <label>EENUfn5DRCx+Q0NefkNUfg0KXlhBDQpeUFc3OTkNCl5GTzAsMF5HRkEsMTEyNjQsMTEyNjQsMDAwODgsOlo2NDoKZUp6dDJVRnYyell[... ZPL code shortened for the sake of this Readme.md ...]</label>
+          <label>EENUfn5DRCx+Q0NefkNUfg0KXlhBDQpeUF[... ZPL code shortened for the sake of this Readme.md ...]</label>
           <parcelNumber>6A12097564594</parcelNumber>
         </labelResponse>
       </return>
@@ -71,7 +94,7 @@ To this (MTOMSoap Response) :
 </soap:Envelope>
 ```
 
-A _var_dump()_ of _$result = $client->\_\_call($url, $params) will look like this (SoapClient auto base64_decode()) :
+A _var_dump()_ of _$result = $client->__call($url, $params) will look like this (**Note :** SoapClient auto base64_decode()) :
 
 ```php
 object(stdClass)[2]
@@ -88,6 +111,6 @@ object(stdClass)[2]
 ^XA
 ^PW799
 ^FO0,0^GFA,11264,11264,00088,:Z64:
-eJzt2UFv2zYUAGByKqIW8MKrD4bUnnbVsEsGuGH+wf4CjQLZJRg87JJDECnLoZcB+QND90cGlEEO2aGA/0DRydihlwFTkENZTBD3HknRdixnTi0NO/gBrR1H[... ZPL code shortened for the sake of this Readme.md ...]' (length=5856)
+eJzt2UFv2zYUAGByKqIW8MKrD4bUnnbVsEsGuGH+wf[... ZPL code shortened for the sake of this Readme.md ...]' (length=5856)
           public 'parcelNumber' => string '6A12097564600' (length=13)
 ```

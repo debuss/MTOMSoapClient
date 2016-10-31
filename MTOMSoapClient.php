@@ -1,10 +1,25 @@
 <?php
+/**
+ * This file is part of the KeepItSimple package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   KeepItSimple\Http\Soap
+ * @author    Alexandre Debusschere (debuss-a)
+ * @copyright Copyright (c) Alexandre Debusschere <alexandre@debuss-a.com>
+ * @licence   MIT
+ */
+
+namespace KeepItSimple\Http\Soap;
+
+use SoapClient;
+use Exception;
 
 /**
  * Class MTOMSoapClient
  *
- * This class overrides some SoapClient methods to implement MTOM for PHP.
- * It decodes XML and integrate attchment in the XML response.
+ * This class overrides SoapClient::__doRequest() method to implement MTOM for PHP.
+ * It decodes XML and integrate attachments in the XML response.
  *
  * @author Alexandre D. <debuss-a>
  * @version 1.0.0
@@ -35,18 +50,16 @@ class MTOMSoapClient extends SoapClient
     {
         $response = parent::__doRequest($request, $location, $action, $version, $one_way);
 
-        $xml_reponse = null;
+        $xml_response = null;
 
         // Catch XML response
-        preg_match('/<soap[\s\S]*nvelope>/', $response, $xml_reponse);
+        preg_match('/<soap[\s\S]*nvelope>/', $response, $xml_response);
 
-        if (!is_array($xml_reponse) || !count($xml_reponse)) {
-
+        if (!is_array($xml_response) || !count($xml_response)) {
             throw new Exception('No XML has been found.');
-
         }
 
-        $xml_reponse = reset($xml_reponse);
+        $xml_response = reset($xml_response);
 
         // Look if xop then replace by base64_encode(binary)
         $xop_elements = null;
@@ -54,9 +67,7 @@ class MTOMSoapClient extends SoapClient
         $xop_elements = reset($xop_elements);
 
         if (is_array($xop_elements) && count($xop_elements)) {
-
             foreach ($xop_elements as $xop_element) {
-
                 // Get CID
                 $cid = null;
                 preg_match('/cid:([0-9a-zA-Z-]+)@/', $xop_element, $cid);
@@ -71,12 +82,10 @@ class MTOMSoapClient extends SoapClient
 
                 // Replace xop:Include tag by base64_encode(binary)
                 // Note: SoapClient will automatically base64_decode(binary)
-                $xml_reponse = preg_replace('/<xop:Include[\s\S]*cid:'.$cid.'@[\s\S]*?\/>/', $binary, $xml_reponse);
-
+                $xml_response = preg_replace('/<xop:Include[\s\S]*cid:'.$cid.'@[\s\S]*?\/>/', $binary, $xml_response);
             }
-
         }
 
-        return $xml_reponse;
+        return $xml_response;
     }
 }
