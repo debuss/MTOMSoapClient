@@ -22,6 +22,14 @@ The class is not perfect and not so optimized but it works for most cases and yo
 
 **Enjoy !**
 
+# Installation
+
+Via composer :
+
+```
+$ composer require debuss-a/mtomsoapclient "dev-master"
+```
+
 # Example
 
 Use it the same as a normal Soap call :
