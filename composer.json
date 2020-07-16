@@ -2,17 +2,22 @@
   "name": "debuss-a/mtomsoapclient",
   "type": "library",
   "description": "This class overrides SoapClient::__doRequest() method to implement MTOM for PHP. It decodes XML and integrate attachments in the XML response.",
-  "minimum-stability": "dev",
   "homepage": "https://github.com/debuss/MTOMSoapClient",
   "license": "MIT",
+  "keywords": [
+    "soap",
+    "SoapClient",
+    "mtom"
+  ],
   "authors": [
     {
-      "name": "Alexandre Debusschere",
-      "email": "alexandre@debuss-a.me"
+      "name": "Alexandre DEBUSSCHERE",
+      "email": "zizilex@gmail.com"
     }
   ],
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.4",
+    "ext-soap": "*"
   },
   "autoload": {
     "psr-4": {

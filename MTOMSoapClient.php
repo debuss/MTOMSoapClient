@@ -35,7 +35,7 @@ class MTOMSoapClient extends SoapClient
      * By the binary code contained in attachment
      *      Content-ID: <d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org>
      *
-     * Note that the binary in converted to base64 with base64_encode().
+     * Note that the binary is converted to base64 with base64_encode().
      *
      * @link http://php.net/manual/en/soapclient.dorequest.php
      * @param string $request

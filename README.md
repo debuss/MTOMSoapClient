@@ -1,4 +1,5 @@
 # MTOMSoapClient
+
 Small PHP Soap class to deal with MTOM technology, fetching binaries as base64 string. 
 
 This class overrides SoapClient::__doRequest() method to implement MTOM for PHP.  
@@ -27,7 +28,7 @@ The class is not perfect and not so optimized but it works for most cases and yo
 Via composer :
 
 ```
-$ composer require debuss-a/mtomsoapclient "dev-master"
+$ composer require debuss-a/mtomsoapclient:^1
 ```
 
 # Example
