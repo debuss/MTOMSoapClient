@@ -1,5 +1,5 @@
 # MTOMSoapClient
-[![Build Status](https://travis-ci.com/debuss-a/mtomsoapclient.svg?branch=master)](https://travis-ci.com/debuss-a/mtomsoapclient)
+[![Build Status](https://travis-ci.com/debuss/mtomsoapclient.svg?branch=master)](https://travis-ci.com/debuss/mtomsoapclient)
 [![Latest Stable Version](https://poser.pugx.org/debuss-a/mtomsoapclient/v)](//packagist.org/packages/debuss-a/mtomsoapclient)
 [![Total Downloads](https://poser.pugx.org/debuss-a/mtomsoapclient/downloads)](//packagist.org/packages/debuss-a/mtomsoapclient)
 [![License](https://poser.pugx.org/debuss-a/mtomsoapclient/license)](//packagist.org/packages/debuss-a/mtomsoapclient)
