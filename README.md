@@ -1,4 +1,8 @@
 # MTOMSoapClient
+[![Build Status](https://travis-ci.com/debuss-a/mtomsoapclient.svg?branch=master)](https://travis-ci.com/debuss-a/mtomsoapclient)
+[![Latest Stable Version](https://poser.pugx.org/debuss-a/mtomsoapclient/v)](//packagist.org/packages/debuss-a/mtomsoapclient)
+[![Total Downloads](https://poser.pugx.org/debuss-a/mtomsoapclient/downloads)](//packagist.org/packages/debuss-a/mtomsoapclient)
+[![License](https://poser.pugx.org/debuss-a/mtomsoapclient/license)](//packagist.org/packages/debuss-a/mtomsoapclient)
 
 Small PHP Soap class to deal with MTOM technology, fetching binaries as base64 string. 
 
@@ -28,7 +32,7 @@ The class is not perfect and not so optimized but it works for most cases and yo
 Via composer :
 
 ```
-$ composer require debuss-a/mtomsoapclient:^1
+$ composer require debuss-a/mtomsoapclient:^2
 ```
 
 # Example

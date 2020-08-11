@@ -6,7 +6,7 @@
  *
  * @package   KeepItSimple\Http\Soap
  * @author    Alexandre Debusschere (debuss-a)
- * @copyright Copyright (c) Alexandre Debusschere <alexandre@debuss-a.com>
+ * @copyright Copyright (c) Alexandre Debusschere <alexandre@debuss-a.me>
  * @licence   MIT
  */
 
@@ -28,8 +28,6 @@ class MTOMSoapClient extends SoapClient
 {
 
     /**
-     * Override SoapClient to add MTOM decoding on responses.
-     *
      * It replaces the :
      *      <xop:Include href="cid:d08bab58-dfea-43f0-8520-477d4c5e0677-103@cxf.apache.org" xmlns:xop="http://www.w3.org/2004/08/xop/include"/>
      * By the binary code contained in attachment
@@ -37,19 +35,12 @@ class MTOMSoapClient extends SoapClient
      *
      * Note that the binary is converted to base64 with base64_encode().
      *
-     * @link http://php.net/manual/en/soapclient.dorequest.php
-     * @param string $request
-     * @param string $location
-     * @param string $action
-     * @param int $version
-     * @param int $one_way
+     * @param string $response
      * @return string The XML SOAP response with <xop> tag replaced by base64 corresponding attachment
      * @throws Exception
      */
-    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    protected function process(string $response): string
     {
-        $response = parent::__doRequest($request, $location, $action, $version, $one_way);
-
         $xml_response = null;
 
         // Catch XML response
@@ -87,5 +78,34 @@ class MTOMSoapClient extends SoapClient
         }
 
         return $xml_response;
+    }
+
+    /**
+     * @param string $response
+     * @return string
+     * @throws Exception
+     */
+    public function dryRun(string $response): string
+    {
+        return $this->process($response);
+    }
+
+    /**
+     * Override SoapClient to add MTOM decoding on responses.
+     *
+     * @link http://php.net/manual/en/soapclient.dorequest.php
+     * @param string $request
+     * @param string $location
+     * @param string $action
+     * @param int $version
+     * @param int $one_way
+     * @return string
+     * @throws Exception
+     */
+    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    {
+        $response = parent::__doRequest($request, $location, $action, $version, $one_way);
+
+        return $this->process($response);
     }
 }

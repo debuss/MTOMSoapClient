@@ -16,12 +16,22 @@
     }
   ],
   "require": {
-    "php": ">=5.4",
+    "php": "^7.2",
     "ext-soap": "*"
+  },
+  "require-dev": {
+    "ext-simplexml": "*",
+    "ext-libxml": "*",
+    "phpunit/phpunit": "^8"
   },
   "autoload": {
     "psr-4": {
       "KeepItSimple\\Http\\Soap\\": ""
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "KeepItSimpleTest\\Http\\Soap\\": "tests/"
     }
   }
 }
