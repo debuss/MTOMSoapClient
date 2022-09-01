@@ -35,12 +35,15 @@ class MTOMSoapClient extends SoapClient
      *
      * Note that the binary is converted to base64 with base64_encode().
      *
-     * @param string $response
-     * @return string The XML SOAP response with <xop> tag replaced by base64 corresponding attachment
+     * @param string|null $response
+     * @return string|null The XML SOAP response with <xop> tag replaced by base64 corresponding attachment
      * @throws Exception
      */
-    protected function process(string $response): string
+    protected function process(?string $response): ?string
     {
+        if (!$response) {
+            return null;
+        }
         $xml_response = null;
 
         // Catch XML response
@@ -81,11 +84,11 @@ class MTOMSoapClient extends SoapClient
     }
 
     /**
-     * @param string $response
-     * @return string
+     * @param string|null $response
+     * @return string|null
      * @throws Exception
      */
-    public function dryRun(string $response): string
+    public function dryRun(?string $response): ?string
     {
         return $this->process($response);
     }
@@ -99,10 +102,10 @@ class MTOMSoapClient extends SoapClient
      * @param string $action
      * @param int $version
      * @param int $one_way
-     * @return string
+     * @return string|null
      * @throws Exception
      */
-    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    public function __doRequest($request, $location, $action, $version, $one_way = 0): ?string
     {
         $response = parent::__doRequest($request, $location, $action, $version, $one_way);
 
