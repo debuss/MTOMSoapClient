@@ -32,7 +32,7 @@ The class is not perfect and not so optimized but it works for most cases and yo
 Via composer :
 
 ```
-$ composer require debuss-a/mtomsoapclient:^2
+$ composer require debuss-a/mtomsoapclient
 ```
 
 # Example
