@@ -1,0 +1,29 @@
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
+Content-Type: application/xop+xml; charset=utf-8; type="text/xml"
+Content-Transfer-Encoding: binary
+Content-ID: <http://tempuri.org/0>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <GetProductResponse xmlns="http://tempuri.org/">
+      <GetProductResult>
+        <Product>
+          <ProductId>1</ProductId>
+          <ProductName>Product 1</ProductName>
+          <ProductDescription>This is a description of Product 1</ProductDescription>
+          <ProductImage>
+            <xop:Include href="cid:http://tempuri.org/1/634151400128047492" xmlns:xop="http://www.w3.org/2004/08/xop/include"/>
+          </ProductImage>
+        </Product>
+      </GetProductResult>
+    </GetProductResponse>
+  </soap:Body>
+</soap:Envelope>
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
+Content-Type: image/jpeg
+Content-Transfer-Encoding: binary
+Content-ID: <http://tempuri.org/1/634151400128047492>
+
+[Binary Data of a JPEG Image Here]
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2

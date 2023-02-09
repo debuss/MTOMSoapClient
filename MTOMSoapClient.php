@@ -12,6 +12,7 @@
 
 namespace KeepItSimple\Http\Soap;
 
+use DOMDocument;
 use SoapClient;
 use Exception;
 
@@ -44,10 +45,10 @@ class MTOMSoapClient extends SoapClient
         if (!$response) {
             return null;
         }
-        $xml_response = null;
 
         // Catch XML response
-        preg_match('/<soap[\s\S]*nvelope>/', $response, $xml_response);
+        $xml_response = null;
+        preg_match('/<soap[\s\S]*nvelope>/i', $response, $xml_response);
 
         if (!is_array($xml_response) || !count($xml_response)) {
             throw new Exception('No XML has been found.');
@@ -55,42 +56,37 @@ class MTOMSoapClient extends SoapClient
 
         $xml_response = reset($xml_response);
 
-        // Look if xop then replace by base64_encode(binary)
-        $xop_elements = null;
-        preg_match_all('/<xop[\s\S]*?\/>/', $response, $xop_elements);
-        $xop_elements = reset($xop_elements);
+        try {
+            $dom = new DOMDocument();
+            $dom->loadXML($xml_response);
 
-        if (is_array($xop_elements) && count($xop_elements)) {
+            $xop_elements = $dom->getElementsByTagNameNS('http://www.w3.org/2004/08/xop/include', 'Include');
             foreach ($xop_elements as $xop_element) {
-                // Get CID
-                $cid = null;
-                preg_match('/cid:([0-9a-zA-Z-]+)@/', $xop_element, $cid);
-                $cid = $cid[1];
+                $cid = $xop_element->getAttribute('href');
+                $cid = str_replace('cid:', '', $cid);
 
-                // Get Binary
-                $binary = null;
-                preg_match('/Content-ID:[\s\S].+?'.$cid.'[\s\S].+?>([\s\S]*?)--uuid/', $response, $binary);
-                $binary = trim($binary[1]);
+                // Find binary
+                $content_id_tag = 'Content-ID: <'.$cid.'>';
+                $start = strpos($response, $content_id_tag) + strlen($content_id_tag);
+                $end = strpos($response, '--uuid:', $start);
 
+                $binary = substr($response, $start, $end - $start);
+                $binary = trim($binary);
                 $binary = base64_encode($binary);
 
-                // Replace xop:Include tag by base64_encode(binary)
-                // Note: SoapClient will automatically base64_decode(binary)
-                $xml_response = preg_replace('/<xop:Include[\s\S]*cid:'.$cid.'@[\s\S]*?\/>/', $binary, $xml_response);
+                $xop_element->parentNode->nodeValue = $binary;
             }
+
+            // Save modified XML string
+            $xml_response = $dom->saveXML();
+        } catch (Exception $exception) {
+            throw new Exception(sprintf(
+                'An error occurred while processing the XML response: %s.',
+                $exception->getMessage()
+            ));
         }
 
         return $xml_response;
-    }
-
-    /**
-     * @param string|null $response
-     * @return string|null
-     * @throws Exception
-     */
-    public function dryRun(?string $response): ?string
-    {
-        return $this->process($response);
     }
 
     /**

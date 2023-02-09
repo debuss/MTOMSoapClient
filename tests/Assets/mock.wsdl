@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mock.example.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mock.example.com/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://mock.example.com/">
+            <xsd:element name="request">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="file" type="xsd:base64Binary"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="response">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="message" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="sendRequest">
+        <wsdl:part element="tns:request" name="request"/>
+    </wsdl:message>
+    <wsdl:message name="sendResponse">
+        <wsdl:part element="tns:response" name="response"/>
+    </wsdl:message>
+    <wsdl:portType name="MockServicePort">
+        <wsdl:operation name="send">
+            <wsdl:input message="tns:sendRequest"/>
+            <wsdl:output message="tns:sendResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MockServiceBinding" type="tns:MockServicePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="send">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="MockService">
+        <wsdl:port binding="tns:MockServiceBinding" name="MockServicePort">
+            <soap:address location="http://mock.example.com/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

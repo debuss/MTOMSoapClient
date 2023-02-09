@@ -16,13 +16,14 @@
     }
   ],
   "require": {
-    "php": "^7.2|^8.0",
-    "ext-soap": "*"
+    "php": "^7.2||^8.0",
+    "ext-soap": "*",
+    "ext-dom": "*"
   },
   "require-dev": {
     "ext-simplexml": "*",
     "ext-libxml": "*",
-    "phpunit/phpunit": "^8"
+    "pestphp/pest": "^1.22"
   },
   "autoload": {
     "psr-4": {
