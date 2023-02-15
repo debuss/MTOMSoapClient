@@ -1,0 +1,52 @@
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
+Content-Type: application/xop+xml; charset=utf-8; type="text/xml"
+Content-Transfer-Encoding: binary
+Content-ID: <http://tempuri.org/0>
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns2:SoapMethodResponse xmlns:ns2="http://www.exemple.com/front-webservice/ws/sample">
+            <ns2:response>
+                <NbAttachments>2</NbAttachments>
+                <Attachments>
+                    <DocumentId>1381878</DocumentId>
+                    <DocumentName>some_name_1</DocumentName>
+                    <Title>some_name_1</Title>
+                    <FileType>application/pdf</FileType>
+                    <Size>170944</Size>
+                    <Content>
+                        <xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include"
+                            href="cid:abcd-efgh-ijkl-mnop-qrst-uvwx-yz@cxf.apache.org"/>
+                    </Content>
+                    <CreationDate>2023-02-13T15:05:40+01:00</CreationDate>
+                </Attachments>
+                <Attachments>
+                    <DocumentId>1381879</DocumentId>
+                    <DocumentName>some_name_2</DocumentName>
+                    <Title>some_name_2</Title>
+                    <FileType>application/pdf</FileType>
+                    <Size>170944</Size>
+                    <Content>
+                        <xop:Include xmlns:xop="http://www.w3.org/2004/08/xop/include"
+                                     href="cid:feeecc7f-a4ba-45f5-865a-09050e9d0e1c-39@cxf.apache.org"/>
+                    </Content>
+                    <CreationDate>2023-02-13T15:05:40+01:00</CreationDate>
+                </Attachments>
+            </ns2:response>
+        </ns2:SoapMethodResponse>
+    </soap:Body>
+</soap:Envelope>
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
+Content-Type: image/jpeg
+Content-Transfer-Encoding: binary
+Content-ID: <feeecc7f-a4ba-45f5-865a-09050e9d0e1c-39@cxf.apache.org>
+
+[Binary Data of a JPEG Image Here]
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
+Content-Type: image/png
+Content-Transfer-Encoding: binary
+Content-ID: <abcd-efgh-ijkl-mnop-qrst-uvwx-yz@cxf.apache.org>
+
+[Binary Data of a PNG Image Here]
+--uuid:d29badc9-021c-4879-a2b9-87b07cf7b4b2
