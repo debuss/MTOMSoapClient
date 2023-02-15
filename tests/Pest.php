@@ -24,5 +24,6 @@ uses()
         );
 
         $this->response = file_get_contents(__DIR__.'/Assets/mock.response');
+        $this->response_multiple_xop = file_get_contents(__DIR__.'/Assets/mock2.response');
     })
     ->in('Unit/MTOMSoapClientTest.php');
