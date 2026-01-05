@@ -103,13 +103,14 @@ class MTOMSoapClient extends SoapClient
      * @param string $location
      * @param string $action
      * @param int $version
-     * @param int $one_way
+     * @param bool $one_way
+     * @param string|null $uriParserClass
      * @return string|null
      * @throws Exception
      */
-    public function __doRequest($request, $location, $action, $version, $one_way = 0): ?string
+    public function __doRequest(string $request, string $location, string $action, int $version, bool $one_way = false, ?string $uriParserClass = null): ?string
     {
-        $response = parent::__doRequest($request, $location, $action, $version, $one_way);
+        $response = parent::__doRequest($request, $location, $action, $version, $one_way, $uriParserClass);
 
         return $this->process($response);
     }
