@@ -61,7 +61,7 @@ class MTOMSoapClient extends SoapClient
             $dom->loadXML($xml_response);
 
             $xop_elements = $dom->getElementsByTagNameNS('http://www.w3.org/2004/08/xop/include', 'Include');
-            $counts = $xop_elements->count() - 1;
+            $counts = $xop_elements->length - 1;
 
             // You can modify, and even delete, nodes from a DOMNodeList if you iterate backwards
             // https://www.php.net/manual/en/class.domnodelist.php#83390
