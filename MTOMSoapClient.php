@@ -110,8 +110,13 @@ class MTOMSoapClient extends SoapClient
      */
     public function __doRequest(string $request, string $location, string $action, int $version, bool $one_way = false, ?string $uriParserClass = null): ?string
     {
-        $response = parent::__doRequest($request, $location, $action, $version, $one_way, $uriParserClass);
+        $args = [$request, $location, $action, $version, $one_way];
 
-        return $this->process($response);
+        if (PHP_VERSION_ID >= 80500) {
+            $args[] = $uriParserClass;
+        }
+        $response = parent::__doRequest(...$args);
+
+        return $this->process( $response );
     }
 }
