@@ -61,7 +61,7 @@ class MTOMSoapClient extends SoapClient
             $dom->loadXML($xml_response);
 
             $xop_elements = $dom->getElementsByTagNameNS('http://www.w3.org/2004/08/xop/include', 'Include');
-            $counts = $xop_elements->count() - 1;
+            $counts = $xop_elements->length - 1;
 
             // You can modify, and even delete, nodes from a DOMNodeList if you iterate backwards
             // https://www.php.net/manual/en/class.domnodelist.php#83390
@@ -110,8 +110,13 @@ class MTOMSoapClient extends SoapClient
      */
     public function __doRequest(string $request, string $location, string $action, int $version, bool $one_way = false, ?string $uriParserClass = null): ?string
     {
-        $response = parent::__doRequest($request, $location, $action, $version, $one_way, $uriParserClass);
+        $args = [$request, $location, $action, $version, $one_way];
 
-        return $this->process($response);
+        if (PHP_VERSION_ID >= 80500) {
+            $args[] = $uriParserClass;
+        }
+        $response = parent::__doRequest(...$args);
+
+        return $this->process( $response );
     }
 }
